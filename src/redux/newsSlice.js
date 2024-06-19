@@ -1,12 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-// Access the API key from environment variable in Vite
-const apiKey = import.meta.env.VITE_API;
+const apiKey = '1146f0fbcbff40659c5cbe1f290b06d3';
 
 export const fetchNews = createAsyncThunk(
   'news/fetchNews',
   async ({ category, page, q }, { rejectWithValue }) => {
-    const countries = ['in'];
+    const countries = ['in']; 
     const pageSize = 20;
     const queryParams = {
       apiKey,
@@ -37,22 +36,25 @@ export const fetchNews = createAsyncThunk(
           })
       );
 
-      const results = await Promise.all(promises);
-      const allArticles = results.flatMap(result => result.articles);
-      const totalResults = results.reduce((sum, result) => sum + result.totalResults, 0);
+      const { articles, totalResults } = await Promise.all(promises)
+        .then(results => {
+          const allArticles = results.flatMap(result => result.articles);
+          const totalResults = results.reduce((sum, result) => sum + result.totalResults, 0);
+          return { articles: allArticles, totalResults };
+        });
 
-      if (allArticles.length === 0) {
+      if (articles.length === 0) {
         throw new Error('No News found.');
       }
 
-      return { articles: allArticles, totalResults };
+      return { articles, totalResults };
     } catch (error) {
       return rejectWithValue(error.message);
     }
   }
 );
 
-// Redux slice definition remains unchanged
+// Redux slice definition
 const newsSlice = createSlice({
   name: 'news',
   initialState: {
@@ -62,7 +64,7 @@ const newsSlice = createSlice({
     totalResults: 0,
     page: 1,
     category: 'general',
-    searchKeyword: '',
+    searchKeyword: '', 
   },
   reducers: {
     setCategory: (state, action) => {
