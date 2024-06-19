@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* index.css */
+
+.toast-container .Toastify__toast {
+    font-size: 1rem; 
+    padding: 1rem;
+    border-radius: 8px;
+    
+  }
+  
+  @media (max-width: 768px) {
+    .toast-container .Toastify__toast {
+      font-size: 0.875rem; 
+      padding: 0.75rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .toast-container .Toastify__toast {
+      font-size: 0.75rem; 
+      padding: 0.5rem;
+      margin-top: 0.4rem;
+    }
+  }
+  
