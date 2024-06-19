@@ -1,4 +1,4 @@
-// NewsCard.js
+
 import React, { useState, useEffect } from 'react';
 import { FaRegHeart, FaHeart } from 'react-icons/fa';
 import { toast } from 'react-toastify';

@@ -1,6 +1,7 @@
 {
   "name": "news",
   "private": true,
+  "homepage": "https://github.com/shivamyadav2469/News",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
